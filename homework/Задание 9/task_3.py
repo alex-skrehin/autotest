@@ -8,6 +8,9 @@ from pathlib import Path
 
 path = Path('C:\\Alex_git\\homework\\Задание 9\\test_file\\task_3.txt')
 file = open(path, mode='r', encoding='utf8')
+sum_purches = 0
+temp = None
+list_purch = []
 for line in file.readlines():
     temp = line.strip()
     if not temp:
@@ -21,5 +24,6 @@ list_purch.sort(reverse=True)
 list_max = list_purch[0:3]
 three_most_expensive_purchases = sum(list_max)
 print(three_most_expensive_purchases)
+file.close()
 
 assert three_most_expensive_purchases == 202346
