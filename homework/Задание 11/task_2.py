@@ -11,7 +11,7 @@ from selenium.webdriver import ActionChains
 import time
 
 driver = webdriver.Chrome()
-driver.set_window_size(1100, 1100)
+driver.maximize_window()
 try:
     driver.get("https://fix-online.sbis.ru/")
     time.sleep(3)
@@ -23,17 +23,14 @@ try:
     pswrd.send_keys('Пароль123')
     driver.find_element(By.CSS_SELECTOR, '[data-qa="auth-AdaptiveLoginForm__signInButton"]').click()
     time.sleep(6)
-    driver.find_element(By.XPATH, '//*[@id="wasaby-content"]/div/div/div[2]/div[3]/div/div/div[1]/div/div['
-                                  '2]/div/div/div/div[2]/a[1]/span[3]').click()
-    time.sleep(3)
-    driver.find_element(By.CSS_SELECTOR, '.NavigationPanels-SubMenu__headTitle.NavigationPanels-SubMenu__title-with'
-                                         '-separator.NavigationPanels-Accordion__prevent-default').click()
+    driver.get("https://fix-online.sbis.ru/page/dialogs/")
     time.sleep(5)
     driver.find_element(By.CSS_SELECTOR, '[data-qa="sabyPage-addButton"]').click()
     time.sleep(6)
-    poisk = driver.find_element(By.XPATH, '//*[@id="popup"]/div[2]/div/div[2]/div[2]/div[2]/div[1]/div/div/div/div['
-                                          '1]/div/div/div/div/div[2]/input')
-    poisk.send_keys('Скрехин')
+    poisk = driver.find_elements(By.CSS_SELECTOR, '[data-qa="controls-Render__field"]')[0]
+    action = ActionChains(driver)
+    action.send_keys('Скрехин')
+    action.perform()
     time.sleep(3)
     driver.find_element(By.CSS_SELECTOR, '[data-qa="person-Information__fio"]').click()
     time.sleep(3)
@@ -52,8 +49,7 @@ try:
     action.context_click(move)
     action.perform()
     time.sleep(3)
-    kill = driver.find_element(By.XPATH, '//*[@id="popup"]/div[2]/div/div/div[1]/div/div/div/div/div/div['
-                                         '1]/div/div/div[6]/div[2]/div')
+    kill = driver.find_elements(By.CSS_SELECTOR, '[type-data-qa="leaf"]')[5]
     kill.click()
     time.sleep(3)
     assert driver.find_element(By.CSS_SELECTOR, '.hint-Template__text_message_m'), 'Объект не удален'
